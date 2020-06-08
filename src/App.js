@@ -28,8 +28,8 @@ const AllInfo = props => {
     return (
       <OneMission
         key={info.mission_name}
-        name={info.mission_name}
-        flight={info.flight_number}
+        missionName={info.mission_name}
+        flightNumber={info.flight_number}
       />
     )
   })
