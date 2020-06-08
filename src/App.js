@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect} from "react"
+import OneMission from "./OneMission"
 
-function App() {
+const AllInfo = props => {
+  const [info, setInfo] = useState ([])
+
+  useEffect (() => {
+  fetch('https://api.spacexdata.com/v3/launches')
+  .then(response =>{
+    if(response.ok){
+      return response;
+      } else {
+        let errorMessage = `${response.status}
+        (${response.statusText})`,
+        error = new Error(errorMessage);
+        throw(error)
+      }
+    })
+  .then(response => response.json())
+  .then(responseFromServer =>{
+    setInfo(responseFromServer)
+    })
+  .catch(error => console.error(`Error in fetch
+    ${error.message}`))
+  }, [])
+
+  const eachMissionInfo = info.map(info =>{
+    return (
+      <OneMission
+        key={info.mission_name}
+        name={info.mission_name}
+        flight={info.flight_number}
+      />
+    )
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1> SpaceX API : </h1>
+        {eachMissionInfo}
     </div>
-  );
+  )
 }
 
-export default App;
+export default AllInfo;
