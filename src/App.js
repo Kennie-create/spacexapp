@@ -34,10 +34,12 @@ export default function RecursiveExample() {
     <Router>
       <Switch>
         <Route path="/:id">
-          <Mission />
+          <ShowContainer
+            Missions={Missions}
+             />
         </Route>
         <Route path="/">
-          <Redirect to="/0" />
+          <Mission />
         </Route>
       </Switch>
     </Router>
@@ -51,12 +53,12 @@ function Mission() {
 
   return (
     <div>
-      <h3>Regular text</h3>
+      <h3>SpaceX Missions</h3>
 
       <ul>
         {Missions.map(mission => (
           <li key={mission.id}>
-          <Link to={`${url}/${mission.id}`}>{mission.name}</Link>
+          <Link to={`${mission.id}`}>{mission.name}</Link>
           </li>
         ))}
       </ul>

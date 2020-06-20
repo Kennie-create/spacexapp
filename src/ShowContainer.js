@@ -1,10 +1,12 @@
 import React from "react"
+import { useParams } from "react-router-dom"
 
-const oneMissionInfo = props => {
+export default function ShowContainer() {
+
+  let { id } = useParams();
+
   return(
-      <p>hey
-      </p>
+    <p> hey {id}
+    </p>
   )
 }
-
-export default oneMissionInfo
