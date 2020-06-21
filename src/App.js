@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
-  Redirect,
   useParams,
-  useRouteMatch
+  useRouteMatch,
 } from "react-router-dom";
-import IndexContainer from "./IndexContainer"
+import ListOfMissions from "./ListOfMissions"
 import ShowContainer from "./ShowContainer"
 
 
@@ -29,56 +28,52 @@ import ShowContainer from "./ShowContainer"
 // segment of the URL disappear along with the last
 // friend list.
 
-export default function RecursiveExample() {
+const Missions = props => {
+  const [missions, setMissions] = useState ([])
+
+  useEffect (() => {
+  fetch('https://api.spacexdata.com/v3/launches')
+  .then(response =>{
+    if(response.ok){
+      return response;
+      } else {
+        let errorMessage = `${response.status}
+        (${response.statusText})`,
+        error = new Error(errorMessage);
+        throw(error)
+      }
+    })
+  .then(response => response.json())
+  .then(responseFromServer =>{
+    setMissions(responseFromServer)
+    })
+  .catch(error => console.error(`Error in fetch
+    ${error.message}`))
+  }, [])
+
   return (
-    <Router>
-      <Switch>
-        <Route path="/:id">
-          <ShowContainer
-            Missions={Missions}
-             />
-        </Route>
-        <Route path="/">
-          <Mission />
-        </Route>
-      </Switch>
-    </Router>
-  );
+    <ListOfMissions
+      Missions={missions}
+      />
+  )
 }
 
-function Mission() {
-  let { url } = useRouteMatch();
-  let { id } = useParams();
-  let mission = find(parseInt(id));
+// export default function RecursiveExample() {
+//   return (
+//     <Router>
+//       <Switch>
+//         <Route path="/:id">
+//           <ShowContainer
+//             Missions={Missions}
+//              />
+//         </Route>
+//         <Route path="/">
+//           <ListOfMissions
+//             />
+//         </Route>
+//       </Switch>
+//     </Router>
+//   );
+// }
 
-  return (
-    <div>
-      <h3>SpaceX Missions</h3>
-
-      <ul>
-        {Missions.map(mission => (
-          <li key={mission.id}>
-          <Link to={`${mission.id}`}>{mission.name}</Link>
-          </li>
-        ))}
-      </ul>
-
-      <Switch>
-        <Route path={`${url}/:id`}>
-          <Mission />
-        </Route>
-      </Switch>
-    </div>
-  );
-}
-
-const Missions = [
-  { id: 0, name: "Mission 1", friends: [1, 2, 3] },
-  { id: 1, name: "Mission 2", friends: [0, 3] },
-  { id: 2, name: "Mission 3", friends: [0, 1, 3] },
-  { id: 3, name: "Mission 4", friends: [1, 2] }
-];
-
-function find(id) {
-  return Missions.find(p => p.id === id);
-}
+export default Missions
