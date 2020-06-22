@@ -5,7 +5,7 @@ export default function ListOfMissions(props) {
 
   const eachMissionInfo = props.missions.map(info => {
         return(
-          <li>
+          <li key={info.mission_name}>            
             <Link to={info.mission_name}>
               {info.mission_name}
             </Link>

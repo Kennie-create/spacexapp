@@ -1,12 +1,20 @@
 import React from "react"
 import { useParams } from "react-router-dom"
 
-export default function ShowContainer() {
+const ShowContainer = (props) => {
 
   let { id } = useParams();
 
+  const specifics = props.missions.find((mission)=>{
+    return mission.mission_name === id
+  }
+)
+if(!specifics){return(null)}
+
   return(
-    <p> hey {id}
+    <p>{specifics.mission_name}
     </p>
   )
 }
+
+export default ShowContainer
