@@ -7,13 +7,17 @@ const ShowContainer = (props) => {
 
   const specifics = props.missions.find((mission)=>{
     return mission.mission_name === id
-  }
-)
+  })
 if(!specifics){return(null)}
 
   return(
-    <p>{specifics.mission_name}
-    </p>
+    <div>
+      <li>
+        Flight Number:{specifics.flight_number},
+        Launch Year: {specifics.launch_year}
+      </li>
+    </div>
+
   )
 }
 
