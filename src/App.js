@@ -1,8 +1,35 @@
-import React, {useState, useEffect} from "react"
-import OneMission from "./OneMission"
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+  useRouteMatch,
+} from "react-router-dom";
+import ListOfMissions from "./ListOfMissions"
+import ShowContainer from "./ShowContainer"
 
-const AllInfo = props => {
-  const [info, setInfo] = useState ([])
+
+// Sometimes you don't know all the possible routes
+// for your application up front; for example, when
+// building a file-system browsing UI or determining
+// URLs dynamically based on data. In these situations,
+// it helps to have a dynamic router that is able
+// to generate routes as needed at runtime.
+//
+// This example lets you drill down into a friends
+// list recursively, viewing each user's friend list
+// along the way. As you drill down, notice each segment
+// being added to the URL. You can copy/paste this link
+// to someone else and they will see the same UI.
+//
+// Then click the back button and watch the last
+// segment of the URL disappear along with the last
+// friend list.
+
+const Missions = props => {
+  const [missions, setMissions] = useState ([])
 
   useEffect (() => {
   fetch('https://api.spacexdata.com/v3/launches')
@@ -18,28 +45,28 @@ const AllInfo = props => {
     })
   .then(response => response.json())
   .then(responseFromServer =>{
-    setInfo(responseFromServer)
+    setMissions(responseFromServer)
     })
   .catch(error => console.error(`Error in fetch
     ${error.message}`))
   }, [])
 
-  const eachMissionInfo = info.map(info =>{
-    return (
-      <OneMission
-        key={info.mission_name}
-        missionName={info.mission_name}
-        flightNumber={info.flight_number}
-      />
-    )
-  })
-
   return (
-    <div>
-      <h1> SpaceX API : </h1>
-        {eachMissionInfo}
-    </div>
-  )
+    <Router>
+      <Switch>
+        <Route path="/:id">
+          <ShowContainer
+            missions={missions}
+             />
+        </Route>
+        <Route path="/">
+          <ListOfMissions
+            missions={missions}
+            />
+        </Route>
+      </Switch>
+    </Router>
+  );
 }
 
-export default AllInfo;
+export default Missions
