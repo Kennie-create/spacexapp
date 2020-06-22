@@ -52,28 +52,21 @@ const Missions = props => {
   }, [])
 
   return (
-    <ListOfMissions
-      Missions={missions}
-      />
-  )
+    <Router>
+      <Switch>
+        <Route path="/:id">
+          <ShowContainer
+            missions={missions}
+             />
+        </Route>
+        <Route path="/">
+          <ListOfMissions
+            missions={missions}
+            />
+        </Route>
+      </Switch>
+    </Router>
+  );
 }
-
-// export default function RecursiveExample() {
-//   return (
-//     <Router>
-//       <Switch>
-//         <Route path="/:id">
-//           <ShowContainer
-//             Missions={Missions}
-//              />
-//         </Route>
-//         <Route path="/">
-//           <ListOfMissions
-//             />
-//         </Route>
-//       </Switch>
-//     </Router>
-//   );
-// }
 
 export default Missions

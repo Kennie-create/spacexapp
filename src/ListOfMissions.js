@@ -1,26 +1,31 @@
 import React from "react"
+import { Link } from "react-router-dom"
 
 export default function ListOfMissions(props) {
+
+  const eachMissionInfo = props.missions.map(info => {
+        return(
+          <li>
+            <Link to={info.mission_name}>
+              {info.mission_name}
+            </Link>
+          </li>
+        )
+      }
+)
   return (
-
+    <>
       <h1> SpaceX API : </h1>
-
+      <ul>{eachMissionInfo}</ul>
+    </>
   )
 }
+
 
 // function Mission() {
 //   let { url } = useRouteMatch();
 //   let { id } = useParams();
 //
-//     const eachMissionInfo = info.map(info => {
-//       return(
-//         <OneMission
-//           key={info.mission_name}
-//           missionName={info.mission_name}
-//           flightNumber={info.flight_number}
-//           />
-//       )
-//     }
 //
 //     )
 //
