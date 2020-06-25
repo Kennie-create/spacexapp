@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.stars-index {
+  background: #000 url("https://image.ibb.co/mjnygo/stars.png");
+  position: absolute;
+  display:block;
+  width: 100%;
+}
+
+.stars-details {
+  background: #000 url("https://image.ibb.co/mjnygo/stars.png");
+  position: absolute;
+  display:block;
+  width: 100%;
+  height: 100%;
+}
+
+.title, .missions, .mission-details, .details-title {
+  color: white;
+}
+
+.mission-details {
+  margin: 0;
+}

@@ -6,7 +6,7 @@ export default function ListOfMissions(props) {
   const eachMissionInfo = props.missions.map(info => {
         return(
           <li key={info.mission_name}>
-            <Link to={info.mission_name}>
+            <Link to={info.mission_name} class="missions">
               {info.mission_name}
             </Link>
           </li>
@@ -14,9 +14,9 @@ export default function ListOfMissions(props) {
       }
 )
   return (
-    <>
-      <h1> SpaceX API : </h1>
-      <ul>{eachMissionInfo}</ul>
-    </>
+    <div class="stars-index">
+      <h1 class="title"> List of SpaceX Missions : </h1>
+        <ul>{eachMissionInfo}</ul>
+    </div>
   )
 }
