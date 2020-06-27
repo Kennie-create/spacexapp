@@ -9,7 +9,6 @@ const ShowContainer = (props) => {
     return mission.mission_name === id
   })
 if(!specifics){return(null)}
-debugger
 
   return(
     <div class="stars-details">
