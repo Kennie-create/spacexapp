@@ -9,12 +9,11 @@ const ShowContainer = (props) => {
     return mission.mission_name === id
   })
 if(!specifics){return(null)}
-debugger
 
   return(
-    <div class="stars-details">
-      <h1 class="details-title">Mission details </h1>
-      <div class="mission-details">
+    <div className="stars-details">
+      <h1 className="details-title">Mission details </h1>
+      <div className="mission-details">
        <ul>About this mission : {specifics.details}</ul>
         <ul>Rocket Name : {specifics.rocket.rocket_name}</ul>
         <ul>Rocket Type : {specifics.rocket.rocket_type}</ul>
